@@ -1,7 +1,17 @@
 import React from "react";
+import { UserButton, currentUser } from "@clerk/nextjs";
 
-const MemberProfile = () => {
-  return <div>MemberProfile</div>;
+const MemberProfile = async () => {
+  const user = await currentUser();
+
+  if (user) {
+    return (
+      <div className="px-4 flex items-center gap-2">
+        <UserButton afterSignOutUrl="/" />
+        <p>{user.emailAddresses[0].emailAddress}</p>
+      </div>
+    );
+  }
 };
 
 export default MemberProfile;
